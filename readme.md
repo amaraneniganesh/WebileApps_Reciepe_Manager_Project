@@ -68,7 +68,7 @@ Stores all recipe data.
 
 ---
 
-## 🧪 API Testing Guide (Postman / Insomnia)
+## 🧪 API Testing Guide (Postman / ThunderClient)
 
 ### Step 1: Login & Get Token
 1. Create a **POST** request to `http://localhost:5000/api/auth/login`.
