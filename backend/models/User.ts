@@ -20,7 +20,7 @@ User.init({
     password: { type: DataTypes.STRING, allowNull: false },
     role: { type: DataTypes.ENUM('superadmin', 'admin'), defaultValue: 'admin' },
     isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
-    image: { type: DataTypes.STRING(1000), defaultValue: '' },
+    image: { type: DataTypes.STRING(1000), defaultValue: 'https://www.deccanchronicle.com/h-upload/2025/11/15/1978625-mahesh-babu.webp' },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
 }, { sequelize, tableName: 'users' });
