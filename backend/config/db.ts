@@ -9,4 +9,3 @@ const dbPassword = process.env.DB_PASSWORD || "1234";
 const dbHost = process.env.DB_HOST || "localhost";
 
 export const sequelize = new Sequelize(dbName,dbUser, dbPassword,{host:dbHost, dialect:"mysql",logging: false});
-
