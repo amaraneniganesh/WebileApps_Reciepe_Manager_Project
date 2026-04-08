@@ -1,5 +1,5 @@
 import {Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional} from 'sequelize';
-import {sequelize} from '../config/db.js'
+import {sequelize} from '../config/db'
 
 class Recipe extends Model<InferAttributes<Recipe>, InferCreationAttributes<Recipe>>{
     declare id: CreationOptional<number>;
