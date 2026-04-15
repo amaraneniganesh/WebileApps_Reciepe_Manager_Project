@@ -20,7 +20,7 @@ const SuperAdminPanel: React.FC = () => {
   const fetchAdmins = async () => {
     try {
       const res = await api.get<User[]>('/users');
-      setAdmins(res.data);
+      setAdmins(res.data); 
     } catch (err) { console.error(err); }
   };
 

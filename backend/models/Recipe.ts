@@ -10,6 +10,7 @@ class Recipe extends Model<InferAttributes<Recipe>, InferCreationAttributes<Reci
     declare cookingTime:number;
     declare servings:number;
     declare image:CreationOptional<string>;
+    declare adminId: number;
     declare createdAt: CreationOptional<Date>;
     declare updatedAt: CreationOptional<Date>;
 }
@@ -38,6 +39,9 @@ Recipe.init({
     },
     image:{
         type:DataTypes.STRING, defaultValue:''
+    },
+    adminId:{
+        type:DataTypes.INTEGER, allowNull:false,references:{model: 'users', key:'id'}
     },
     createdAt:{
         type:DataTypes.DATE, defaultValue:DataTypes.NOW

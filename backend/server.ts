@@ -2,11 +2,17 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-// Database & Utils
+// 1. Import Database & Models FIRST
 import { sequelize } from './config/db';
-import { seedSuperAdmin } from './utils/seedSuperAdmin';
+import User from './models/User';
+import Recipe from './models/Recipe';
 
-// Routes
+// 2. DEFINE ASSOCIATIONS GLOBALLY (This fixes your error!)
+User.hasMany(Recipe, { foreignKey: 'adminId', as: 'recipes' });
+Recipe.belongsTo(User, { foreignKey: 'adminId', as: 'admin' });
+
+// 3. Import Utils & Routes AFTER associations are made
+import { seedSuperAdmin } from './utils/seedSuperAdmin';
 import authRoutes from './routes/auth';
 import recipeRoutes from './routes/recipes';
 import userRoutes from './routes/users';
@@ -30,26 +36,22 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async (): Promise<void> => {
     try {
-        // 1. Authenticate with MySQL (Assumes you created the DB in Workbench)
         await sequelize.authenticate();
         console.log('✅ Database connection established successfully.');
 
-        // 2. Sync all defined models to the DB (Creates tables if missing)
-        await sequelize.sync();
+        // Use { alter: true } so Sequelize syncs the new adminId column
+        await sequelize.sync({ alter: true });
         console.log('✅ Database tables synced successfully.');
 
-        // 3. Seed the initial SuperAdmin account from .env
         await seedSuperAdmin();
 
-        // 4. Start the Express Server
         app.listen(PORT, () => {
             console.log(`🚀 Server running in TypeScript on port ${PORT}`);
         });
     } catch (error) {
         console.error('❌ Failed to start server:', error);
-        process.exit(1); // Stop the server completely if the database fails
+        process.exit(1); 
     }
 };
 
-// Execute the startup function
 startServer();

@@ -50,6 +50,7 @@ router.patch('/:id/toggle', async (req: AuthRequest, res: Response) => {
         const user = await User.findByPk(req.params.id as string);
         if (user) { await user.update({ isActive: !user.isActive }); res.json({ message: 'Status toggled' }); }
     } catch (err: any) { res.status(500).json({ error: err.message }); }
+    
 });
 
 router.delete('/:id', async (req: AuthRequest, res: Response): Promise<void> => {
